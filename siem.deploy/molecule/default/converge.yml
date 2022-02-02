@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include siem.deploy"
+      include_role:
+        name: "siem.deploy"

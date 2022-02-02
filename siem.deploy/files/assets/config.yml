@@ -1,0 +1,142 @@
+---
+# Homepage configuration
+# See https://fontawesome.com/icons for icons options
+
+title: "SIEM Services Dashboard"
+subtitle: "Services Overview"
+logo: "assets/icons/siem.png"
+# icon: "fas fa-skull-crossbones" # Optional icon
+
+header: true
+
+# Optional theme customization
+theme: default
+colors:
+  light:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#ffffff"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link: "#3273dc"
+    link-hover: "#363636"
+  dark:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#131313"
+    card-background: "#2b2b2b"
+    text: "#eaeaea"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#f5f5f5"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link: "#3273dc"
+    link-hover: "#ffdd57"
+
+# Optional navbar
+# links: [] # Allows for navbar (dark mode, layout, and search) without any links
+links:
+  - name: "Contribute"
+    icon: "fab fa-github"
+    url: "https://github.com/bastienwirtz/homer"
+    target: "_blank" # optional html a tag target attribute
+  - name: "Wiki"
+    icon: "fas fa-book"
+    url: "https://www.wikipedia.org/"
+
+# Services
+# First level array represent a group.
+# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+services:
+  - name: "Use Cases"
+    icon: "fas fa-fingerprint"
+    items:
+      - name: "Usecase 1.1"
+        logo: "assets/icons/usecase.png"
+        subtitle: "Malicious Code"
+        tag: "uc"
+        url: "http://usecase.docker.localhost/about"
+      - name: "Usecase 9.0"
+        logo: "assets/icons/usecase.png"
+        subtitle: "C&C Portal"
+        tag: "uc"
+        url: "http://usecase.docker.localhost/about"
+  - name: "Elasticsearch"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Kix"
+        logo: "assets/icons/helpdesk.png"
+        subtitle: "Kix Helpdesk"
+        tag: "app"
+        url: "http://localhost:20001"
+      - name: "Alert UI"
+        logo: "assets/icons/alert.png"
+        subtitle: "Alert Dashboard"
+        tag: "app"
+        url: "http://kibana.docker.localhost/"
+      - name: "Kibana"
+        logo: "assets/icons/pie-chart.png"
+        subtitle: "Kibana Dashboard"
+        tag: "app"
+        url: "http://kibana.docker.localhost/"
+      - name: "Elasticsearch"
+        logo: "assets/icons/dbserver.png"
+        subtitle: "Database Access"
+        tag: "app"
+        url: "http://elastic.docker.localhost/"
+  - name: "Auxiliary Services"
+    icon: "fas fa-server"
+    items:
+      - name: "Monitoring"
+        logo: "assets/icons/line-chart.png"
+        subtitle: "Platform Monitoring"
+        tag: "app"
+        url: "http://mon.docker.localhost/"
+      - name: "Fn"
+        logo: "assets/icons/lambda.png"
+        subtitle: "Serverless Functions"
+        tag: "admin"
+        url: "http://fn.docker.localhost/"
+        target: "_blank" # optional html a tag target attribute
+      - name: "Cron"
+        logo: "assets/icons/cron.png"
+        subtitle: "Scheduling Service"
+        tag: "admin"
+        url: "http://cron.docker.localhost"
+        target: "_blank" # optional html a tag target attribute
+      - name: "DB Admin"
+        logo: "assets/icons/dbserver.png"
+        subtitle: "Database Administration"
+        tag: "admin"
+        url: "http://dbadmin.docker.localhost"
+      - name: "RabbitMQ Admin"
+        logo: "assets/icons/rabbitmq.png"
+        subtitle: "RabbitMQ Administration"
+        tag: "admin"
+        url: "http://mq.docker.localhost"
+      - name: "Workflow Admin"
+        logo: "assets/icons/workflow.png"
+        subtitle: "Manage Usecase Workflows"
+        tag: "admin"
+        url: "#"
+      - name: "Load Balancer"
+        logo: "assets/icons/loadbalancer.png"
+        subtitle: "Reverse Proxy / Load Balancer"
+        tag: "admin"
+        url: "http://home.docker.localhost:8080/"
+      - name: "SSH Access"
+        logo: "assets/icons/ssh.png"
+        subtitle: "Container Bastion Node"
+        tag: "admin"
+        url: "http://bastion.docker.localhost/"
+      - name: "Vault"
+        logo: "assets/icons/vault.png"
+        subtitle: "Secret and Certificate Vault"
+        tag: "admin"
+        url: "http://vault.docker.localhost/"

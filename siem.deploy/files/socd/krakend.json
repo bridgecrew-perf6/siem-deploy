@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "extra_config": {
+    "github_com/devopsfaith/krakend-metrics": {
+      "collection_time": "60s",
+      "proxy_disabled": false,
+      "router_disabled": false,
+      "backend_disabled": false,
+      "endpoint_disabled": false,
+      "listen_address": ":8090"
+    },
+    "github_com/devopsfaith/krakend-opencensus": {
+      "exporters": {
+        "prometheus": {
+            "port": 9091,
+            "namespace": "krakend",
+            "tag_host": false,
+            "tag_path": true,
+            "tag_method": true,
+            "tag_statuscode": false
+        }
+      }
+    }
+  },
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "output_encoding": "json",
+  "name": "SOC Services",
+  "port": 8000,
+  "endpoints": [
+    {
+      "endpoint": "/geoip/{ipv4_address}",
+      "method": "GET",
+      "output_encoding": "json",
+      "extra_config": {},
+      "timeout": "2048ms",
+      "cache_ttl": "48h",
+      "querystring_params": [],
+      "backend": [
+        {
+          "url_pattern": "/{ipv4_address}?access_key=33846f5e7e8b6c718a169df47a16ca66",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "api.ipstack.com"
+          ],
+          "extra_config": {
+            "github.com/devopsfaith/krakend-httpcache": {}
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/domain/{domain}",
+      "method": "GET",
+      "output_encoding": "json",
+      "extra_config": {},
+      "cache_ttl": "24h",
+      "backend": [
+        {
+          "url_pattern": "/api/v3/domains/{domain}",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "www.virustotal.com"
+          ],
+          "extra_config": {
+            "github.com/devopsfaith/krakend-httpcache": {},
+            "github.com/devopsfaith/krakend-martian": {
+              "header.Modifier": {
+                "scope": ["request"],
+                "name": "x-apikey",
+                "value": "a1839e9458df41a9a715dc30e54cbdafac65522292ae33ae08463509dc511b13"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
