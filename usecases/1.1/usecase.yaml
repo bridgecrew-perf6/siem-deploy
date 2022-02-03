@@ -1,0 +1,139 @@
+#
+# Sample Use Case Document
+#
+
+# ID of the use case; references to framework identifier (MITR, ENISA, etc.)
+id: 1.1
+name: Malicious Code
+description: |
+  Malicious code is a software that is intentionally included or 
+  inserted in a system for a harmful purpose. 
+  A user interaction is normally necessary to activate the code. 
+  This use case is aimed to identify malicious code 
+  and how to deal with it. 
+incident_types:
+  - Virus
+  - Worm
+  - Trojan
+  - Spyware
+  - Dialer
+  - Rootkit
+# Risk score [0..10] for later evaluation
+risk_score: 9
+# Index containing the logs
+log_index: carbon-black-edr-*
+# Index containing the alerts.
+alert_index: security_alerts
+# Customer code name
+customer: mojave
+# Set to true to activate the processing of this use case.
+active: true
+# Fields to include in the alert.
+alert_include_fields:
+  - hostname
+  - process.id
+  - process.name
+# Condition when alert should be created.
+# You can use Python code here; reference to variable `hits` is the query result.
+alert_condition: len(hits) > 0
+# Define the workflow for this use case.
+# The respective processors are called in that order.
+# @since1.1
+workflow:
+#  - extractor
+  - empty
+  - alerter
+  - indexer
+# This query will be run against Elasticsearch when extract processor is in place.
+query:
+  index: siem_alerts-cbr-*
+  size: 0
+  query:
+    bool:
+      must:
+      - match:
+          status: unresolved
+      - exists:
+          field: hostname
+      - exists:
+          field: event.hash
+      - range:
+          event.ingested:
+            gte: now-3000d
+            lte: now
+      must_not:
+      - term:
+          ioc_type:
+            value: class
+      - term:
+          ioc_type:
+            value: md5
+  aggs:
+    agg_key_1:
+      terms:
+        field: event.hash.keyword
+      aggs:
+        agg_key_2:
+          terms:
+            field: hostname.keyword
+          aggs:
+            top_hits:
+              top_hits:
+                sort:
+                - event.ingested:
+                    order: desc
+                _source:
+                  includes:
+                  - alert_severity
+                  - alert_type
+                  - cb_server
+                  - childproc_count
+                  - comms_ip
+                  - computer_name
+                  - created_time
+                  - crossproc_count
+                  - destination.port
+                  - event
+                  - event.created
+                  - event.hash
+                  - event.original
+                  - event.risk_score
+                  - feed_id
+                  - feed_name
+                  - feed_rating
+                  - filemod_count
+                  - hostname
+                  - interface_ip
+                  - ioc_confidence
+                  - ioc_type
+                  - md5
+                  - modload_count
+                  - netconn_count
+                  - os_type
+                  - port
+                  - process_guid
+                  - process_id
+                  - process_name
+                  - process_path
+                  - process_unique_id
+                  - regmod_count
+                  - report_score
+                  - segment_id
+                  - sensor_criticality
+                  - sensor_id
+                  - sha256
+                  - status
+                  - syslog_host
+                  - syslog_message
+                  - syslog_pri
+                  - syslog_program
+                  - syslog_timestamp
+                  - timestamp
+                  - type
+                  - unique_id
+                  - username
+                  - "@version"
+                  - watchlist_id
+                  - watchlist_name
+                size: 100
+
